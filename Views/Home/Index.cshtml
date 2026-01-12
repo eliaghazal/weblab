@@ -1,0 +1,52 @@
+﻿@model IEnumerable<MVCIdentity.DTOVMs.customerDTOVM>
+
+@{
+    ViewData["Title"] = "Customer Index";
+}
+
+<h1>Customer Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.idCustomer)</th>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>Addresses</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.idCustomer)</td>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>
+                    @if (item.Addresses != null && item.Addresses.Any())
+                    {
+                        <ul>
+                            @foreach (var address in item.Addresses)
+                            {
+                                <li>
+                                    [@address.idAddress] @address.description
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span>No Addresses found</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.idCustomer">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.idCustomer">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
